@@ -44,7 +44,7 @@ public class DuckDB {
         }, 0, 1000L);
     }
 
-    public <T> void write(Map<Long, List<T>> collect) {
+    public synchronized <T> void write(Map<Long, List<T>> collect) {
         collect.forEach((k, v) -> {
             String s = "/data/" + k;
             DuckDBWriter duckDBWriter = DUCKDBWRITER_MAP.computeIfAbsent(s, a -> new DuckDBWriter(s, conn));
