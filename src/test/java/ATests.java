@@ -43,7 +43,7 @@ class ATests {
             int finalI = i;
             threadList.add(CompletableFuture.runAsync(() -> {
                 for (int j = 0; j < 111; j++) {
-                    duckDB.getDATA_QUEUE().add(new User((long) finalI, "demo" + j));
+                    duckDB.getDATA_QUEUE().add(new User((long) finalI, "demo" + j, null));
                     try {
                         Thread.sleep(10L);
                     } catch (Exception e) {
@@ -51,9 +51,7 @@ class ATests {
                 }
             }));
         }
-        if (!threadList.isEmpty()) {
-            CompletableFuture.allOf(threadList.toArray(new CompletableFuture[0])).join();// join 等待结果,不join 则不等待
-        }
+        CompletableFuture.allOf(threadList.toArray(new CompletableFuture[0])).join();// join 等待结果,不join 则不等待
         Thread.sleep(1000000L);
     }
 }
